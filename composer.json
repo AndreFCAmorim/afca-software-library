@@ -1,0 +1,21 @@
+{
+  "name": "afca-plugins/software-library",
+  "description": "This plugin allows you to manage the information of all of your themes and plugins. Everything is accessible trough the WordPress API.",
+  "type": "wordpress-plugin",
+  "autoload": {
+    "psr-4": {
+      "Afca\\Plugins\\SoftwareLibrary\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "André Amorim",
+      "email": "contact@andreamorim.site"
+    }
+  ],
+  "require": {},
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^2.3",
+    "squizlabs/php_codesniffer": "3.*"
+  }
+}
