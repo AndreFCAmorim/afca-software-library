@@ -3,7 +3,7 @@
  * Plugin Name:       WP Software Library
  * Description:       This plugin allows you to manage the information of all of your themes and plugins. Everything is accessible trough the WordPress API.
  * Requires at least: 6.1
- * Requires PHP:      8.1
+ * Requires PHP:      7.4
  * Version:           0.0.1
  * Author:            André Amorim
  * Author URI:        https://andreamorim.site
