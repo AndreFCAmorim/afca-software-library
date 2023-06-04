@@ -11,10 +11,32 @@
  */
 
 /**
+ * Require composer autoload for psr-4
+ */
+if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
+	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
+}
+
+/**
  * Load plugin text domain for translations.
  */
 function afca_load_plugin_language() {
-    // Replace 'your-textdomain' with your plugin's text domain.
-    load_plugin_textdomain( 'afca-software-library', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+	// Replace 'your-textdomain' with your plugin's text domain.
+	load_plugin_textdomain( 'afca-software-library', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'afca_load_plugin_language' );
+
+/**
+ * Register the custom post type
+ */
+use Afca\Plugins\SoftwareLibrary\PostType;
+new PostType();
+
+/**
+ * Register acf meta fields
+ */
+use Afca\Plugins\SoftwareLibrary\MetaFields;
+new MetaFields(
+	plugin_dir_path( __FILE__ ) . '/libs/acf/',
+	plugin_dir_url( __FILE__ ) . '/libs/acf/',
+);
