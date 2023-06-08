@@ -26,7 +26,7 @@ class Updates {
 				'headers'   => [
 					'Accept' => 'application/json',
 				],
-				'sslverify' => false,
+				'sslverify' => true,
 			]
 		);
 
