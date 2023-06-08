@@ -4,7 +4,7 @@
  * Description:       This plugin allows you to manage the information of all of your themes and plugins. Everything is accessible trough the WordPress API.
  * Requires at least: 6.1
  * Requires PHP:      7.4
- * Version:           0.0.2
+ * Version:           0.2
  * Author:            André Amorim
  * Author URI:        https://andreamorim.site
  * Text Domain:       afca-software-library
@@ -46,3 +46,11 @@ new MetaFields(
  */
 use Afca\Plugins\SoftwareLibrary\Endpoints;
 new Endpoints();
+
+/**
+ * Register updates
+ */
+use Afca\Plugins\SoftwareLibrary\Updates;
+$plugin_dir  = plugin_dir_path( __FILE__ );
+$plugin_data = get_plugin_data( $plugin_dir . 'afca-software-library.php' );
+new Updates( 'https://andreamorim.site/', $plugin_data['TextDomain'], $plugin_data['Version'] );
