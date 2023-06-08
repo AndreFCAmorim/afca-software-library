@@ -25,7 +25,7 @@ class PostType {
 			 'public'                => false,
 			 'publicly_queryable'    => false,
 			 'show_ui'               => true,
-			 'show_in_rest'          => true,
+			 'show_in_rest'          => false,
 			 'rest_base'             => '',
 			 'rest_controller_class' => 'WP_REST_Posts_Controller',
 			 'rest_namespace'        => 'wp/v2',
@@ -44,7 +44,7 @@ class PostType {
 			 ],
 			 'query_var'             => true,
 			 'menu_icon'             => 'dashicons-portfolio',
-			 'supports'              => [ 'title' ],
+			 'supports'              => [ 'title', 'editor' ],
 			 'show_in_graphql'       => false,
 		 ];
 
