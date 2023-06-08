@@ -37,7 +37,9 @@ class Updates {
 		];
 
 		if ( version_compare( $this->plugin_version, $data->new_version, '<' ) ) {
-			$transient->response['afca-software-library/afca-software-library.php'] = $data;
+			if ( is_array( $transient->response ) ) {
+				$transient->response['afca-software-library/afca-software-library.php'] = $data;
+			}
 		}
 
 		return $transient;
