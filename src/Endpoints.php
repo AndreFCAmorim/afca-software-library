@@ -32,6 +32,8 @@ class Endpoints {
 				'released_notes' => $post->post_content,
 				'version'        => $meta_group['version'],
 				'url'            => $meta_group['url'],
+				'wp_required'    => $meta_group['wp_required'],
+				'wp_tested'      => $meta_group['wp_tested'],
 				'released_date'  => $meta_group['released_date'],
 			];
 		} else {
