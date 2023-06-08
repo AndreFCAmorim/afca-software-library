@@ -46,6 +46,8 @@ class Updates {
 	}
 
 	public function check_for_updates_on_hub() {
+		$ssl_verify = true; // Initial SSL verification option
+
 		$remote = wp_remote_get(
 			$this->update_hub . 'wp-json/afca-software-library/v1/ref/' . $this->plugin_name,
 			[
@@ -53,16 +55,32 @@ class Updates {
 				'headers'   => [
 					'Accept' => 'application/json',
 				],
-				'sslverify' => true,
+				'sslverify' => $ssl_verify,
 			]
 		);
 
+		// Retry with SSL verification disabled if there is an error
 		if ( is_wp_error( $remote ) || 200 !== wp_remote_retrieve_response_code( $remote ) || empty( wp_remote_retrieve_body( $remote ) ) ) {
+			$ssl_verify = false; // Disable SSL verification
+			$remote = wp_remote_get(
+				$this->update_hub . 'wp-json/afca-software-library/v1/ref/' . $this->plugin_name,
+				[
+					'timeout'   => 30,
+					'headers'   => [
+						'Accept' => 'application/json',
+					],
+					'sslverify' => $ssl_verify,
+				]
+			);
+		}
+
+		if ( is_wp_error( $remote ) || 200 !== wp_remote_retrieve_response_code( $remote ) || empty( wp_remote_retrieve_body( $remote ) ) ) {
+			error_log( $remote->get_error_message() );
 			return;
 		} else {
 			$remote = json_decode( wp_remote_retrieve_body( $remote ) );
 			set_transient( 'afca-software-library-api-response', $remote, 86400 );
 		}
-
 	}
+
 }
