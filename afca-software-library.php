@@ -53,4 +53,6 @@ new Endpoints();
 use Afca\Plugins\SoftwareLibrary\Updates;
 $plugin_dir  = plugin_dir_path( __FILE__ );
 $plugin_data = get_plugin_data( $plugin_dir . 'afca-software-library.php' );
-new Updates( 'https://andreamorim.site/', $plugin_data['TextDomain'], $plugin_data['Version'] );
+$update_class = new Updates( 'https://andreamorim.site/', $plugin_data['TextDomain'], $plugin_data['Version'] );
+
+add_action( 'init', [ $update_class, 'check_for_updates_on_hub' ] );

@@ -19,22 +19,7 @@ class Updates {
 	public function afca_custom_plugin_update( $transient ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-		$remote = wp_remote_get(
-			$this->update_hub . 'wp-json/afca-software-library/v1/ref/' . $this->plugin_name,
-			[
-				'timeout'   => 10,
-				'headers'   => [
-					'Accept' => 'application/json',
-				],
-				'sslverify' => true,
-			]
-		);
-
-		if ( is_wp_error( $remote ) || 200 !== wp_remote_retrieve_response_code( $remote ) || empty( wp_remote_retrieve_body( $remote ) ) ) {
-			return $transient;
-		}
-
-		$remote = json_decode( wp_remote_retrieve_body( $remote ) );
+		$remote = get_transient('afca-software-library-api-response');
 
 		if ( ! $remote || ! isset( $remote->id ) ) {
 			return $transient;
@@ -56,5 +41,26 @@ class Updates {
 		}
 
 		return $transient;
+	}
+
+	public function check_for_updates_on_hub() {
+		$remote = wp_remote_get(
+			$this->update_hub . 'wp-json/afca-software-library/v1/ref/' . $this->plugin_name,
+			[
+				'timeout'   => 30,
+				'headers'   => [
+					'Accept' => 'application/json',
+				],
+				'sslverify' => true,
+			]
+		);
+
+		if ( is_wp_error( $remote ) || 200 !== wp_remote_retrieve_response_code( $remote ) || empty( wp_remote_retrieve_body( $remote ) ) ) {
+			return;
+		} else {
+			$remote = json_decode( wp_remote_retrieve_body( $remote ) );
+			set_transient( 'afca-software-library-api-response', $remote, 86400 );
+		}
+
 	}
 }
