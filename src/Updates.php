@@ -74,7 +74,7 @@ class Updates {
 			);
 		}
 
-		if ( is_wp_error( $remote ) || 200 !== wp_remote_retrieve_response_code( $remote ) || empty( wp_remote_retrieve_body( $remote ) ) ) {
+		if ( is_wp_error( $remote ) && ( wp_remote_retrieve_response_code( $remote ) !==  200 || empty( wp_remote_retrieve_body( $remote ) ) ) ) {
 			error_log( $remote->get_error_message() );
 			return;
 		} else {
