@@ -129,7 +129,7 @@ class MetaFields {
 										'min'           => '',
 										'max'           => '',
 										'placeholder'   => '',
-										'step'          => '',
+										'step'          => '0.1',
 										'prepend'       => '',
 										'append'        => '',
 									],
