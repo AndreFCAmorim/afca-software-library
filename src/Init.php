@@ -52,6 +52,6 @@ class Init {
 
 	public function afca_load_plugin_language() {
 		// Replace 'your-textdomain' with your plugin's text domain.
-		load_plugin_textdomain( 'afca-software-library', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'afca-software-library', false, $this->plugin_dir_path . 'languages/' );
 	}
 }
