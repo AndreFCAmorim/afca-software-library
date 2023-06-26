@@ -4,7 +4,7 @@ namespace Afca\Plugins\SoftwareLibrary;
 
 class Updates {
 
-	private object | bool | array $remote_response;
+	private $remote_response;
 	private string $update_hub;
 	private string $plugin_name;
 	private string $plugin_version;
