@@ -4,7 +4,7 @@ namespace Afca\Plugins\SoftwareLibrary;
 
 class MetaFields {
 
-	function __construct( string $lib_acf_path, string $lib_acf_url ) {
+	public function __construct( string $lib_acf_path, string $lib_acf_url ) {
 		// Include the ACF plugin.
 		include_once $lib_acf_path . 'acf.php';
 
@@ -49,7 +49,7 @@ class MetaFields {
 				acf_add_local_field_group(
 					[
 						'key'                   => 'group_640d3dafd8e12',
-						'title'                 => 'Technical Information',
+						'title'                 => __( 'Technical Information', 'afca-software-library' ),
 						'fields'                => [
 							[
 								'key'               => 'field_647ca20950de9',
@@ -69,7 +69,7 @@ class MetaFields {
 								'sub_fields'        => [
 									[
 										'key'           => 'field_640d3db147dcc',
-										'label'         => 'Type',
+										'label'         => __( 'Type', 'afca-software-library' ),
 										'name'          => 'type',
 										'aria-label'    => '',
 										'type'          => 'select',
@@ -82,9 +82,9 @@ class MetaFields {
 											'id'    => '',
 										],
 										'choices'       => [
-											'plugin' => 'Plugin',
-											'theme'  => 'Theme',
-											'other'  => 'Others',
+											'plugin' => __( 'Plugin', 'afca-software-library' ),
+											'theme'  => __( 'Theme', 'afca-software-library' ),
+											'other'  => __( 'Others', 'afca-software-library' ),
 										],
 										'default_value' => false,
 										'return_format' => 'value',
@@ -96,7 +96,7 @@ class MetaFields {
 									],
 									[
 										'key'           => 'field_640d3ddc47dcd',
-										'label'         => 'URL',
+										'label'         => __( 'URL', 'afca-software-library' ),
 										'name'          => 'url',
 										'aria-label'    => '',
 										'type'          => 'url',
@@ -113,7 +113,7 @@ class MetaFields {
 									],
 									[
 										'key'           => 'field_640d3dfc47dce',
-										'label'         => 'Version',
+										'label'         => __( 'Version', 'afca-software-library' ),
 										'name'          => 'version',
 										'aria-label'    => '',
 										'type'          => 'number',
@@ -135,11 +135,11 @@ class MetaFields {
 									],
 									[
 										'key'           => 'field_640d3dfc47dca',
-										'label'         => 'Required Version',
+										'label'         => __( 'Required Version', 'afca-software-library' ),
 										'name'          => 'wp_required',
 										'aria-label'    => '',
 										'type'          => 'number',
-										'instructions'  => 'What is the WordPress required version?',
+										'instructions'  => __( 'What is the WordPress required version?', 'afca-software-library' ),
 										'required'      => 1,
 										'conditional_logic' => 0,
 										'wrapper'       => [
@@ -157,11 +157,11 @@ class MetaFields {
 									],
 									[
 										'key'           => 'field_640d3dfc47dcb',
-										'label'         => 'Tested Version',
+										'label'         => __( 'Tested Versions', 'afca-software-library' ),
 										'name'          => 'wp_tested',
 										'aria-label'    => '',
 										'type'          => 'number',
-										'instructions'  => 'What is the WordPress tested version?',
+										'instructions'  => __( 'What is the WordPress tested version?', 'afca-software-library' ),
 										'required'      => 1,
 										'conditional_logic' => 0,
 										'wrapper'       => [
@@ -179,7 +179,7 @@ class MetaFields {
 									],
 									[
 										'key'            => 'field_640e5386caf55',
-										'label'          => 'Released Date',
+										'label'          => __( 'Released Date', 'afca-software-library' ),
 										'name'           => 'released_date',
 										'aria-label'     => '',
 										'type'           => 'date_picker',
