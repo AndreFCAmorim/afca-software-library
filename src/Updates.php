@@ -21,7 +21,7 @@ class Updates {
 	public function afca_custom_plugin_update( $transient ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-		if ( ! isset( $this->remote_response->id ) ) {
+		if ( isset( $this->remote_response->id ) ) {
 			return $transient;
 		}
 
