@@ -4,7 +4,7 @@ namespace Afca\Plugins\SoftwareLibrary;
 
 class Endpoints {
 
-	function __construct() {
+	public function __construct() {
 		add_action(
 			'rest_api_init',
 			function () {
@@ -12,8 +12,9 @@ class Endpoints {
 					'afca-software-library/v1',
 					'/ref/(?P<slug>[a-z0-9-]+)',
 					[
-						'methods'  => 'GET',
-						'callback' => [ $this, 'callback' ],
+						'methods'             => 'GET',
+						'callback'            => [ $this, 'callback' ],
+						'permission_callback' => '__return_true',
 					]
 				);
 			}
