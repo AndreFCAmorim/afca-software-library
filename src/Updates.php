@@ -52,16 +52,21 @@ class Updates {
 
 		$ssl_verify = true; // Initial SSL verification option
 
-		$this->remote_response = wp_remote_get(
-			$this->update_hub . 'wp-json/afca-software-library/v1/ref/' . $this->plugin_name,
-			[
-				'timeout'   => 30,
-				'headers'   => [
-					'Accept' => 'application/json',
-				],
-				'sslverify' => $ssl_verify,
-			]
-		);
+		try {
+			$this->remote_response = wp_remote_get(
+				$this->update_hub . 'wp-json/afca-software-library/v1/ref/' . $this->plugin_name,
+				[
+					'timeout'   => 30,
+					'headers'   => [
+						'Accept' => 'application/json',
+					],
+					'sslverify' => $ssl_verify,
+				]
+			);
+		} catch ( \Exception $ex ) {
+			error_log( 'It was not possible to check for updates: ' . $ex->getMessage() );
+			return;
+		}
 
 		// Retry with SSL verification disabled if there is an error
 		if ( is_wp_error( $this->remote_response ) || 200 !== wp_remote_retrieve_response_code( $this->remote_response ) || empty( wp_remote_retrieve_body( $this->remote_response ) ) ) {
