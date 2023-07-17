@@ -10,15 +10,15 @@ class Updates {
 	private string $plugin_version;
 
 	public function __construct( $hub, $uid, $version ) {
-		$this->remote_response = get_transient( 'afca-software-library-api-response' );
+		$this->remote_response = get_transient( 'afca-software-library-update-api-response' );
 		$this->update_hub      = $hub;
 		$this->plugin_name     = $uid;
 		$this->plugin_version  = $version;
 
-		add_filter( 'site_transient_update_plugins', [ $this, 'afca_custom_plugin_update' ] );
+		add_filter( 'site_transient_update_plugins', [ $this, 'get_plugin_updates' ] );
 	}
 
-	public function afca_custom_plugin_update( $transient ) {
+	public function get_plugin_updates( $transient ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
 		if ( isset( $this->remote_response->id ) ) {
@@ -88,7 +88,7 @@ class Updates {
 			return;
 		} else {
 			$this->remote_response = json_decode( wp_remote_retrieve_body( $this->remote_response ) );
-			set_transient( 'afca-software-library-api-response', $this->remote_response, 86400 );
+			set_transient( 'afca-software-library-update-api-response', $this->remote_response, 86400 );
 		}
 	}
 
