@@ -83,11 +83,20 @@ class Updates {
 			);
 		}
 
+		// Bug Fix When Response is 403 Forbidden
+		if ( 403 === wp_remote_retrieve_response_code( $this->remote_response ) ) {
+			$this->remote_response = file_get_contents( $this->update_hub . 'wp-json/afca-software-library/v1/ref/' . $this->plugin_name );
+		}
+
 		if ( is_wp_error( $this->remote_response ) && ( wp_remote_retrieve_response_code( $this->remote_response ) !== 200 || empty( wp_remote_retrieve_body( $this->remote_response ) ) ) ) {
 			error_log( $this->remote_response->get_error_message() );
 			return;
 		} else {
-			$this->remote_response = json_decode( wp_remote_retrieve_body( $this->remote_response ) );
+			if ( is_string( $this->remote_response ) ) {
+				$this->remote_response = json_decode( $this->remote_response );
+			} else {
+				$this->remote_response = json_decode( wp_remote_retrieve_body( $this->remote_response ) );
+			}
 			set_transient( 'afca-software-library-update-api-response', $this->remote_response, 86400 );
 		}
 	}
