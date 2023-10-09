@@ -11,6 +11,11 @@
 
 	<rule ref="WordPress-Extra" />
 
+    <!-- Ignore whitespace align rule -->
+	<rule ref="WordPress.WhiteSpace.PrecisionAlignment">
+        <severity>0</severity>
+    </rule>
+
 	<!-- Yoda conditions, we must ignore -->
 	<rule ref="WordPress.PHP.YodaConditions.NotYoda">
 		<severity>0</severity>
