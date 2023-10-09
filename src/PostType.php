@@ -4,12 +4,12 @@ namespace Afca\Plugins\SoftwareLibrary;
 
 class PostType {
 
-	function __construct() {
+	public function __construct() {
 		add_action( 'init', [ $this, 'register_cpt' ] );
 	}
 
 	public function register_cpt() {
-				/**
+		/**
 		 * Post Type: Software Library.
 		 */
 
