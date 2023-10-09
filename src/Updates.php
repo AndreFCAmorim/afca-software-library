@@ -68,23 +68,32 @@ class Updates {
 			return;
 		}
 
+		$response_code = wp_remote_retrieve_response_code( $this->remote_response );
+
 		// Retry with SSL verification disabled if there is an error
-		if ( is_wp_error( $this->remote_response ) || 200 !== wp_remote_retrieve_response_code( $this->remote_response ) || empty( wp_remote_retrieve_body( $this->remote_response ) ) ) {
-			$ssl_verify            = false; // Disable SSL verification
-			$this->remote_response = wp_remote_get(
-				$this->update_hub . 'wp-json/afca-software-library/v1/ref/' . $this->plugin_name,
-				[
-					'timeout'   => 30,
-					'headers'   => [
-						'Accept' => 'application/json',
-					],
-					'sslverify' => $ssl_verify,
-				]
-			);
+		if ( is_wp_error( $this->remote_response ) || $response_code !== 200 || empty( $response_code ) ) {
+			try {
+				$ssl_verify            = false; // Disable SSL verification
+				$this->remote_response = wp_remote_get(
+					$this->update_hub . 'wp-json/afca-software-library/v1/ref/' . $this->plugin_name,
+					[
+						'timeout'   => 30,
+						'headers'   => [
+							'Accept' => 'application/json',
+						],
+						'sslverify' => $ssl_verify,
+					]
+				);
+			} catch ( \Exception $ex ) {
+				error_log( 'It was not possible to check for updates: ' . $ex->getMessage() );
+				return;
+			}
 		}
 
+		$response_code = wp_remote_retrieve_response_code( $this->remote_response );
+
 		// Bug Fix When Response is 403 Forbidden
-		if ( 403 === wp_remote_retrieve_response_code( $this->remote_response ) ) {
+		if ( $response_code == 403 || $response_code == "" ) {
 			$this->remote_response = file_get_contents( $this->update_hub . 'wp-json/afca-software-library/v1/ref/' . $this->plugin_name );
 		}
 
