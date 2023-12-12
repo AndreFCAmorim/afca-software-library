@@ -47,7 +47,11 @@ class Init {
 			$plugin_data  = get_plugin_data( $plugin_dir . 'afca-software-library.php' );
 			$update_class = new Updates( 'https://andreamorim.site/', basename( $plugin_dir ), $plugin_data['Version'] );
 
-			add_action( 'init', [ $update_class, 'check_for_updates_on_hub' ] );
+			// Schedule task for checking updates
+			add_action( 'afca_software_library', [ $update_class, 'check_for_updates_on_hub' ] );
+			if ( ! wp_next_scheduled( 'afca_software_library' ) ) {
+				wp_schedule_event( current_time( 'timestamp' ), 'daily', 'afca_software_library' );
+			}
 		}
 	}
 
