@@ -5,7 +5,7 @@
  * Plugin URI:        https://andreamorim.site/plugin-documentation/sofware-library/
  * Requires at least: 6.1
  * Requires PHP:      7.4
- * Version:           1.0
+ * Version:           1.1
  * Author:            André Amorim
  * Author URI:        https://andreamorim.site
  * Text Domain:       afca-software-library
