@@ -46,10 +46,6 @@ class Updates {
 	}
 
 	public function check_for_updates_on_hub() {
-		if ( ! isset( $this->remote_response->id ) ) {
-			return;
-		}
-
 		$ssl_verify = true; // Initial SSL verification option
 
 		try {
