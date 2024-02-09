@@ -18,5 +18,17 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
+// Init
 use Afca\Plugins\SoftwareLibrary\Init;
 new Init( plugin_dir_path( __FILE__ ) );
+
+// Clean schedule events on plugin deactivation
+register_deactivation_hook(
+	__FILE__,
+	function () {
+
+		if ( wp_next_scheduled( 'afca_software_library_updates' ) ) {
+			wp_clear_scheduled_hook( 'afca_software_library_updates' );
+		}
+	},
+);
