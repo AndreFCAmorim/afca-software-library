@@ -1,5 +1,4 @@
 <ruleset name="AFCA-PHPCS" namespace="afca\software">
-	<config name="installed_paths" value="vendor/wp-coding-standards/wpcs" />
 	<description>AFCA Code Standards.</description>
 
 	<exclude-pattern>*/phpunit.xml*</exclude-pattern>
@@ -9,12 +8,8 @@
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 
-	<rule ref="WordPress-Extra" />
 
-    <!-- Ignore whitespace align rule -->
-	<rule ref="WordPress.WhiteSpace.PrecisionAlignment">
-        <severity>0</severity>
-    </rule>
+	<rule ref="WordPress-Extra"/>
 
 	<!-- Yoda conditions, we must ignore -->
 	<rule ref="WordPress.PHP.YodaConditions.NotYoda">
@@ -38,14 +33,13 @@
 			<property name="additionalWordDelimiters" value="/"/>
 		</properties>
 	</rule>
-
-	<rule ref="WordPress.PHP.DisallowShortTernary.Found">
-		<severity>0</severity>
-	</rule>
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
 		<type>warning</type>
 	</rule>
 	<rule ref="Generic.Arrays.DisallowShortArraySyntax">
+		<severity>0</severity>
+	</rule>
+	<rule ref="Universal.Arrays.DisallowShortArraySyntax">
 		<severity>0</severity>
 	</rule>
 

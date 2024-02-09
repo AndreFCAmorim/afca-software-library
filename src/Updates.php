@@ -21,7 +21,7 @@ class Updates {
 	public function get_plugin_updates( $transient ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-		if ( isset( $this->remote_response->id ) ) {
+		if ( ! isset( $this->remote_response->id ) ) {
 			return $transient;
 		}
 
@@ -46,7 +46,7 @@ class Updates {
 	}
 
 	public function check_for_updates_on_hub() {
-		if ( isset( $this->remote_response->id ) ) {
+		if ( ! isset( $this->remote_response->id ) ) {
 			return;
 		}
 

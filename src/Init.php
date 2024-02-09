@@ -10,39 +10,38 @@ use Afca\Plugins\SoftwareLibrary\Updates;
 class Init {
 
 	private string $plugin_dir_path;
-	private string $plugin_dir_url;
 
-	public function __construct( string $plugin_dir_path, string $plugin_dir_url ) {
+	public function __construct( string $plugin_dir_path ) {
+		$this->plugin_dir_path = $plugin_dir_path;
+
+		/**
+		 * Register endpoints
+		 */
+		new Endpoints();
+
+		/**
+		 * Register the custom post type
+		 */
+		new PostType();
+
+		/**
+		 * Register acf meta fields
+		 */
+		new MetaFields();
+
+		/**
+		 * Load plugin text domain for translations.
+		 */
+		add_action( 'plugins_loaded', [ $this, 'afca_load_plugin_language' ] );
+
 		if ( is_admin() ) {
-			$this->plugin_dir_path = $plugin_dir_path;
-			$this->plugin_dir_url  = $plugin_dir_url;
-
-			/**
-			 * Load plugin text domain for translations.
-			 */
-			add_action( 'plugins_loaded', [ $this, 'afca_load_plugin_language' ] );
-
-			/**
-			 * Register the custom post type
-			 */
-			new PostType();
-
-			/**
-			 * Register acf meta fields
-			 */
-			new MetaFields(
-				$this->plugin_dir_path . '/libs/acf/',
-				$this->plugin_dir_url . '/libs/acf/',
-			);
-
-			/**
-			 * Register endpoints
-			 */
-			new Endpoints();
-
 			/**
 			 * Register updates
 			 */
+			if ( ! function_exists( 'get_plugin_data' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
+
 			$plugin_dir   = $this->plugin_dir_path;
 			$plugin_data  = get_plugin_data( $plugin_dir . 'afca-software-library.php' );
 			$update_class = new Updates( 'https://andreamorim.site/', basename( $plugin_dir ), $plugin_data['Version'] );
