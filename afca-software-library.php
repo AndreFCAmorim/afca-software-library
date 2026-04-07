@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       WP Software Library
+ * Plugin Name:       AFCA Software Library
  * Description:       This plugin allows you to manage the information of all of your themes and plugins. Everything is accessible trough the WordPress API.
  * Plugin URI:        https://andreamorim.site/plugin-documentation/sofware-library/
  * Requires at least: 6.1
