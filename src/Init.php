@@ -42,14 +42,16 @@ class Init {
 		}
 
 		$plugin_dir   = $this->plugin_dir_path;
-		$plugin_data  = get_plugin_data( $plugin_dir . 'afca-software-library.php' );
-		$update_class = new Updates( site_url(), basename( $plugin_dir ), $plugin_data['Version'] );
+		add_action( 'init', function() use ( $plugin_dir ) {
+			$plugin_data  = get_plugin_data( $plugin_dir . 'afca-software-library.php' );
+			$update_class = new Updates( site_url(), basename( $plugin_dir ), $plugin_data['Version'] );
 
-		// Schedule task for checking updates
-		add_action( 'afca_software_library_updates', [ $update_class, 'check_for_updates_on_hub' ] );
-		if ( ! wp_next_scheduled( 'afca_software_library_updates' ) ) {
-			wp_schedule_event( current_time( 'timestamp' ), 'daily', 'afca_software_library_updates' );
-		}
+			// Schedule task for checking updates
+			add_action( 'afca_software_library_updates', [ $update_class, 'check_for_updates_on_hub' ] );
+			if ( ! wp_next_scheduled( 'afca_software_library_updates' ) ) {
+				wp_schedule_event( current_time( 'timestamp' ), 'daily', 'afca_software_library_updates' );
+			}
+		});
 	}
 
 
